@@ -11,17 +11,26 @@ import { ILog } from '../../models/ILog';
 })
 export class LogsComponent implements OnInit {
   logs: ILog[];
+  selectedLog: ILog;
+  loaded = false;
 
   constructor(private _logService: LogService) { }
 
   ngOnInit() {
+    this._logService.stateClear.subscribe(clear => {
+      if (clear) {
+        this.selectedLog = {id: '', text: '', date: ''};
+      }
+    });
     this._logService.getLogs().subscribe(logs => {
       this.logs = logs;
+      this.loaded = true;
     });
   }
 
   onSelect(log: ILog) {
     this._logService.setFormLog(log);
+    this.selectedLog = log;
   }
 
   onDelete(log: ILog) {

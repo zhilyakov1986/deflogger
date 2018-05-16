@@ -49,6 +49,17 @@ export class LogFormComponent implements OnInit {
       // Update log
       this._logService.updateLog(updLog);
     }
+
+    // clear the state
+    this.clearState();
+  }
+
+  clearState() {
+    this.isNew = true;
+    this.id = '';
+    this.text = '';
+    this.date = '';
+    this._logService.clearState();
   }
 
   generateId() {
