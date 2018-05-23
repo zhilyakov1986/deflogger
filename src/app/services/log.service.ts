@@ -17,8 +17,7 @@ export class LogService {
   });
   selectedLog = this.logSource.asObservable();
 
-  private stateSource = new BehaviorSubject<boolean>
-  (true);
+  private stateSource = new BehaviorSubject<boolean>(true);
   stateClear = this.stateSource.asObservable();
 
   constructor() {
@@ -48,9 +47,11 @@ export class LogService {
     } else {
       this.logs = JSON.parse(localStorage.getItem('logs'));
     }
-    return of(this.logs.sort((a, b) => {
-      return b.date - a.date;
-    }));
+    return of(
+      this.logs.sort((a, b) => {
+        return b.date - a.date;
+      })
+    );
   }
 
   setFormLog(log: ILog) {
@@ -65,7 +66,7 @@ export class LogService {
 
   updateLog(log: ILog) {
     this.logs.forEach((cur, index) => {
-      if(log.id === cur.id) {
+      if (log.id === cur.id) {
         this.logs.splice(index, 1);
       }
     });
